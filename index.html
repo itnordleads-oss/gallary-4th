@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halden — Gallery Site 04</title>
+  <meta name="description" content="Halden — timeless furniture. Rebuilt from 4th.mp4." />
+  <meta name="robots" content="index,follow" />
+  <meta property="og:title" content="Halden — Timeless Furniture" />
+  <meta property="og:description" content="Made for considered living." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%23e10600' width='32' height='32'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23fff' font-size='16' font-family='Georgia'%3EH%3C/text%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#f4efe8" />
+  <meta name="color-scheme" content="light" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=web4-1" />
+</head>
+<body>
+  <header class="nav" data-theme="cream">
+    <a class="logo" href="#top">Halden</a>
+    <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+    <nav class="links" aria-label="Primary">
+      <a href="#catalogue">Catalogue</a>
+      <a href="#products">Series</a>
+      <a href="#about">About</a>
+      <a href="#materials">Materials</a>
+    </nav>
+    <div class="tools">
+      <button type="button" data-panel="search">Search</button>
+      <button type="button" data-panel="saved">Saved <b id="savedCount">0</b></button>
+      <button type="button" data-panel="bag">Bag <b id="bagCount">0</b></button>
+    </div>
+  </header>
+
+  <div class="panel" id="searchPanel" hidden>
+    <label>Search the series<input id="searchInput" type="search" placeholder="Chair, sofa, table…" /></label>
+  </div>
+  <div class="panel" id="savedPanel" hidden>
+    <p class="panel-empty">Nothing saved yet.</p>
+    <ul id="savedList"></ul>
+  </div>
+  <div class="panel" id="bagPanel" hidden>
+    <p class="panel-empty">Your bag is empty.</p>
+    <ul id="bagList"></ul>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <p class="welcome">Welcome to Halden — timeless design, made to last.</p>
+      <h1>
+        <span>Timeless</span>
+        <span>Furniture/</span>
+      </h1>
+      <a class="explore" href="#products">[ Explore collection ]</a>
+
+      <article class="float f-red" data-speed="18">
+        <img src="images/chair.jpg" alt="Collection 001 chair" />
+        <small>Collection 001</small>
+      </article>
+      <article class="float f-stool" data-speed="28">
+        <img src="images/stool.jpg" alt="Direction stool" />
+        <small>Direction</small>
+      </article>
+      <article class="float f-sofa" data-speed="12">
+        <img src="images/sofa.jpg" alt="Bergen sofa" />
+        <small>Bergen sofa · £4,240</small>
+      </article>
+      <article class="float f-arm" data-speed="22">
+        <img src="images/table.jpg" alt="Low armchair" />
+        <small>Low armchair</small>
+      </article>
+    </section>
+
+    <section class="manifesto" id="about" data-nav="red">
+      <p class="manifesto-copy">
+        (Halden) is made for <em>considered living</em>,
+        for beautiful <img src="images/sofa.jpg" alt="" /> spaces, made to last —
+        furniture that belongs <img src="images/chair.jpg" alt="" /> in your everyday,
+        and stays with you for years to come.
+      </p>
+      <p class="materials" id="materials">Oak · wool bouclé · linen · oiled walnut · brass</p>
+    </section>
+
+    <section class="catalogue" id="catalogue">
+      <div class="cat-meta">
+        <p>(01) — Catalogue</p>
+        <p>Nine categories, and that’s the whole company. No waitlist, no seasonal drop. If it isn’t on the list, we don’t make it.</p>
+      </div>
+      <div class="cat-stage">
+        <img class="cat-shot cat-left" src="images/sofa.jpg" alt="" />
+        <ol class="cat-list">
+          <li><button type="button" class="is-on" data-left="images/sofa.jpg" data-right="images/chair.jpg">All products</button></li>
+          <li><button type="button" data-left="images/sofa.jpg" data-right="images/room.jpg">Sofas</button></li>
+          <li><button type="button" data-left="images/table.jpg" data-right="images/chair.jpg">Chairs</button></li>
+          <li><button type="button" data-left="images/side.jpg" data-right="images/table.jpg">Tables</button></li>
+          <li><button type="button" data-left="images/side.jpg" data-right="images/lamp.jpg">Storage</button></li>
+          <li><button type="button" data-left="images/room.jpg" data-right="images/sofa.jpg">Beds</button></li>
+          <li><button type="button" data-left="images/lamp.jpg" data-right="images/side.jpg">Bedsides</button></li>
+          <li><button type="button" data-left="images/lamp.jpg" data-right="images/room.jpg">Lighting</button></li>
+          <li><button type="button" data-left="images/room.jpg" data-right="images/table.jpg">Mirrors</button></li>
+        </ol>
+        <i class="cat-bar" aria-hidden="true"></i>
+        <img class="cat-shot cat-right" src="images/chair.jpg" alt="" />
+      </div>
+    </section>
+
+    <section class="products" id="products">
+      <div class="prod-head">
+        <h2>Finished, boxed, waiting by the door</h2>
+        <p>The current collection — ready to ship. Pieces in stock ship within days.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter the series">
+        <button type="button" class="is-on" data-filter="all">All <span>16</span></button>
+        <button type="button" data-filter="chairs">Chairs <span>3</span></button>
+        <button type="button" data-filter="tables">Tables <span>4</span></button>
+        <button type="button" data-filter="seating">Seating <span>4</span></button>
+        <button type="button" data-filter="storage">Storage <span>5</span></button>
+      </div>
+      <div class="grid" id="productGrid">
+        <article class="card" data-cat="chairs" data-name="Elara Lounge Chair" data-price="2840">
+          <button class="heart" type="button" aria-label="Save Elara Lounge Chair">♡</button>
+          <img src="images/table.jpg" alt="Elara Lounge Chair" />
+          <div class="card-copy">
+            <strong>Elara Lounge Chair</strong>
+            <span>Oak and bouclé</span>
+            <em>£2,840</em>
+            <button class="add" type="button">Add to bag</button>
+          </div>
+        </article>
+        <article class="card" data-cat="tables" data-name="Ansel Dining Table" data-price="1960">
+          <button class="heart" type="button" aria-label="Save Ansel Dining Table">♡</button>
+          <img src="images/stool.jpg" alt="Ansel Dining Table" />
+          <div class="card-copy">
+            <strong>Ansel Dining Table</strong>
+            <span>Oiled walnut</span>
+            <em>£1,960</em>
+            <button class="add" type="button">Add to bag</button>
+          </div>
+        </article>
+        <article class="card" data-cat="seating" data-name="Marlow Two-Seater" data-price="3120">
+          <button class="heart" type="button" aria-label="Save Marlow Two-Seater">♡</button>
+          <img src="images/sofa.jpg" alt="Marlow Two-Seater" />
+          <div class="card-copy">
+            <strong>Marlow Two-Seater</strong>
+            <span>Wool weave</span>
+            <em>£3,120</em>
+            <button class="add" type="button">Add to bag</button>
+          </div>
+        </article>
+        <article class="card" data-cat="storage" data-name="Vega Sideboard" data-price="2250">
+          <button class="heart" type="button" aria-label="Save Vega Sideboard">♡</button>
+          <img src="images/side.jpg" alt="Vega Sideboard" />
+          <div class="card-copy">
+            <strong>Vega Sideboard</strong>
+            <span>Smoked oak</span>
+            <em>£2,250</em>
+            <button class="add" type="button">Add to bag</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="lives" id="lives">
+      <div class="lives-head">
+        <h2>See it where it actually lives</h2>
+        <p>Our furniture in real houses. Explore the pieces in their natural surroundings and get inspired.</p>
+      </div>
+      <figure class="room">
+        <img src="images/room.jpg" alt="Halden pieces in a London living room" />
+        <button class="hot hs-a" type="button" style="left:18%;top:28%" aria-label="Globe pendant">+</button>
+        <div class="tip tip-a">Globe pendant<br /><span>£640 · Lighting</span></div>
+        <button class="hot hs-b" type="button" style="left:22%;top:62%" aria-label="Dining table">+</button>
+        <div class="tip tip-b">Ansel dining table<br /><span>£1,960 · Tables</span></div>
+        <button class="hot hs-c" type="button" style="left:48%;top:48%" aria-label="Coffee table">+</button>
+        <div class="tip tip-c">Low coffee table<br /><span>£890 · Tables</span></div>
+        <button class="hot hs-d" type="button" style="left:72%;top:58%" aria-label="Sofa">+</button>
+        <div class="tip tip-d">Marlow two-seater<br /><span>£3,120 · Seating</span></div>
+        <figcaption>Show apartment · Primrose Hill, London</figcaption>
+      </figure>
+    </section>
+
+    <section class="letter" id="letter" data-nav="red">
+      <div class="letter-top">
+        <div>
+          <h2>Four emails a year, and none of them are sales.</h2>
+          <form id="letterForm">
+            <input type="email" name="email" required placeholder="name@studio.com" autocomplete="email" />
+            <button type="submit">Subscribe</button>
+          </form>
+          <p class="form-note">One letter each season. No discount codes.</p>
+        </div>
+        <div class="cols">
+          <div>
+            <h3>Shop</h3>
+            <a href="#products">New arrivals</a>
+            <a href="#products">In stock now</a>
+            <a href="#catalogue">The series</a>
+            <a href="#letter">Trade &amp; contract</a>
+          </div>
+          <div>
+            <h3>Studio</h3>
+            <a href="#about">Our story</a>
+            <a href="#materials">Materials</a>
+            <a href="#about">Repairs</a>
+            <a href="#about">Journal</a>
+          </div>
+          <div>
+            <h3>Visit</h3>
+            <a href="#lives">Showroom</a>
+            <a href="#letter">Returns</a>
+            <a href="#materials">Care guide</a>
+            <a href="#letter">Contact</a>
+          </div>
+        </div>
+      </div>
+      <p class="wordmark" aria-hidden="true"><span>H</span><span>A</span><span>L</span><span>D</span><span>E</span><span>N</span></p>
+      <p class="copy">© 2026 Halden. Gallery Site 04 · rebuilt from 4th.mp4</p>
+    </section>
+  </main>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script defer src="main.js?v=web4-1"></script>
+</body>
+</html>
