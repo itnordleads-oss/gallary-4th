@@ -1,6 +1,6 @@
 (() => {
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const isPhone = window.matchMedia("(max-width: 980px)").matches;
+  const isPhone = window.matchMedia("(max-width: 980px), (pointer: coarse)").matches;
   const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   const nav = document.querySelector(".nav");
@@ -148,6 +148,10 @@
     button.addEventListener("click", () => placeBar(button, true));
   });
   placeBar(buttons.find((button) => button.classList.contains("is-on")) || buttons[0], false);
+  window.addEventListener("resize", () => {
+    const current = buttons.find((button) => button.classList.contains("is-on"));
+    if (current) placeBar(current, false);
+  });
 
   const room = document.querySelector(".room");
   if (!room) throw new Error("Room scene is missing.");
@@ -226,9 +230,24 @@
   }
 
   const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
-  intro.from(".hero h1 span", { y: 80, opacity: 0, duration: 0.9, stagger: 0.08 });
-  intro.from(".welcome, .explore", { y: 16, opacity: 0, duration: 0.5, stagger: 0.06 }, "-=0.4");
-  intro.from(".float", { y: 30, opacity: 0, duration: 0.6, stagger: 0.08 }, "-=0.45");
+  intro.from(".hero h1 span", {
+    y: isPhone ? 12 : 80,
+    opacity: 0,
+    duration: isPhone ? 0.45 : 0.9,
+    stagger: isPhone ? 0.05 : 0.08,
+  });
+  intro.from(".welcome, .explore", {
+    y: isPhone ? 10 : 16,
+    opacity: 0,
+    duration: isPhone ? 0.4 : 0.5,
+    stagger: 0.05,
+  }, "-=0.3");
+  intro.from(".float", {
+    y: isPhone ? 12 : 30,
+    opacity: 0,
+    duration: isPhone ? 0.4 : 0.6,
+    stagger: 0.06,
+  }, "-=0.35");
 
   if (!isPhone) {
     document.querySelectorAll(".float").forEach((card) => {
@@ -247,56 +266,86 @@
     });
   }
 
-  gsap.from(".manifesto-copy", {
-    scrollTrigger: { trigger: ".manifesto", start: "top 75%" },
-    y: 40,
-    opacity: 0,
-    duration: 0.8,
-  });
-  gsap.from(".manifesto-copy img", {
-    scrollTrigger: { trigger: ".manifesto", start: "top 70%" },
-    scale: 0.6,
-    opacity: 0,
-    duration: 0.6,
-    stagger: 0.12,
-  });
+  const reveal = (targets, trigger) => {
+    const nodes = gsap.utils.toArray(targets);
+    if (!nodes.length) throw new Error(`Reveal target is missing: ${targets}`);
+    gsap.set(nodes, { y: 12, opacity: 1, scale: 1, rotate: 0 });
+    ScrollTrigger.create({
+      trigger,
+      start: "top 92%",
+      once: true,
+      onEnter: () => {
+        gsap.to(nodes, {
+          y: 0,
+          duration: 0.45,
+          stagger: 0.05,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      },
+    });
+  };
 
-  const catButtons = buttons;
-  ScrollTrigger.create({
-    trigger: ".catalogue",
-    start: "top 60%",
-    end: "bottom 40%",
-    onUpdate: (self) => {
-      const index = Math.min(catButtons.length - 1, Math.floor(self.progress * catButtons.length));
-      if (!catButtons[index].classList.contains("is-on")) placeBar(catButtons[index], true);
-    },
-  });
+  if (isPhone) {
+    reveal(".manifesto-copy", ".manifesto");
+    reveal(".card", ".grid");
+    reveal(".room", ".lives");
+    reveal(".wordmark span", ".wordmark");
+  } else {
+    gsap.from(".manifesto-copy", {
+      scrollTrigger: { trigger: ".manifesto", start: "top 75%" },
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+    });
+    gsap.from(".manifesto-copy img", {
+      scrollTrigger: { trigger: ".manifesto", start: "top 70%" },
+      scale: 0.6,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.12,
+    });
 
-  gsap.from(".card", {
-    scrollTrigger: { trigger: ".grid", start: "top 80%" },
-    y: 36,
-    opacity: 0,
-    duration: 0.6,
-    stagger: 0.08,
-  });
-  gsap.from(".room", {
-    scrollTrigger: { trigger: ".lives", start: "top 75%" },
-    clipPath: "inset(8% 6% 8% 6%)",
-    duration: 0.9,
-    ease: "power3.out",
-  });
-  gsap.from(".wordmark span", {
-    scrollTrigger: { trigger: ".wordmark", start: "top 90%" },
-    y: (i) => (i % 2 === 0 ? 80 : 40),
-    opacity: 0,
-    rotate: (i) => (i % 2 === 0 ? -8 : 8),
-    duration: 0.7,
-    stagger: 0.06,
-    ease: "power3.out",
-  });
+    const catButtons = buttons;
+    ScrollTrigger.create({
+      trigger: ".catalogue",
+      start: "top 60%",
+      end: "bottom 40%",
+      onUpdate: (self) => {
+        const index = Math.min(catButtons.length - 1, Math.floor(self.progress * catButtons.length));
+        if (!catButtons[index].classList.contains("is-on")) placeBar(catButtons[index], true);
+      },
+    });
+
+    gsap.from(".card", {
+      scrollTrigger: { trigger: ".grid", start: "top 80%" },
+      y: 36,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.08,
+    });
+    gsap.from(".room", {
+      scrollTrigger: { trigger: ".lives", start: "top 75%" },
+      clipPath: "inset(8% 6% 8% 6%)",
+      duration: 0.9,
+      ease: "power3.out",
+    });
+    gsap.from(".wordmark span", {
+      scrollTrigger: { trigger: ".wordmark", start: "top 90%" },
+      y: (i) => (i % 2 === 0 ? 80 : 40),
+      opacity: 0,
+      rotate: (i) => (i % 2 === 0 ? -8 : 8),
+      duration: 0.7,
+      stagger: 0.06,
+      ease: "power3.out",
+    });
+  }
 
   ScrollTrigger.create({ start: 0, end: "max", onUpdate: setNavTheme });
   setNavTheme();
   ScrollTrigger.config({ ignoreMobileResize: true });
   window.addEventListener("load", () => ScrollTrigger.refresh());
+  window.addEventListener("orientationchange", () => {
+    window.setTimeout(() => ScrollTrigger.refresh(), 200);
+  });
 })();
